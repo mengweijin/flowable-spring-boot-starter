@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+#  application:
+#    name: @project.artifactId@
+  profiles:
+    active: db,layui,dev
+  banner:
+    location: classpath:banner.txt
+  mvc:
+    throw-exception-if-no-handler-found: false
+  resources:
+    # 对于Restful风格的应用应该设置为false; 对于传统的应用（如: 使用thymeleaf），应该设置为 true, 否则浏览器访问不到静态资源文件
+    add-mappings: true
+  main:
+    # 是否允许循环依赖（Spring Cloud Alibaba Sentinel 中就有循环依赖）
+    allow-circular-references: false
+  jackson:
+    # 默认就是UTC时区
+    #time-zone: UTC
+    # 加上这个配置，从前台接收LocalDateTime类型可直接使用@DateTimeFormat注解
+    #date-format: yyyy-MM-dd HH:mm:ss
+    # 序列化所有实体类的字段，包括值为null的
+    default-property-inclusion: ALWAYS
+#日志配置, 2.5.5 以后的配置。以前的版本是 logging.file: logs/application.log
+logging:
+  file:
+    name: logs/application.log
+  level:
+    root: info
+    com.github.mengweijin: debug
+
