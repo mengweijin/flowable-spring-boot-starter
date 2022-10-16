@@ -40,11 +40,56 @@
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree">
                     <li class="layui-nav-item">
-                        <a href="javascript:top.window.location.href='/flowable-ui';"><i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a>
+                        <a href="javascript:top.window.location.href='/flowable-ui';">
+                            <i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页
+                        </a>
                     </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:javascript:frame('flowable-ui/user');"><i class="fas fa-file-lines" style="margin-right: 10px;"></i>用户</a>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"><i class="fas fa-file-lines" style="margin-right: 10px;"></i>系统管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/user');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>流程用户
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/group');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>流程组
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/defintion');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>流程定义
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/deploy');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>流程部署
+                                </a>
+                            </dd>
+                        </dl>
                     </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"><i class="fas fa-file-lines" style="margin-right: 10px;"></i>流程管理</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/reviewing');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>待处理流程
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/reviewed');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>参与的流程
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:frame('flowable-ui/finished');">
+                                    <i class="fas fa-file-lines" style="margin-left: 20px; margin-right: 10px;"></i>已结束流程
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+
                     <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i
                                 class="fa-solid fa-link" style="margin-right: 10px;"></i>Gitee</a></li>
                     <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i
@@ -54,13 +99,15 @@
         </div>
 
         <div class="layui-body">
-            <iframe id="mainFrame" src="/quickboot/demo/img" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>
+            <iframe id="mainFrame" src="/quickboot/demo/img" scrolling="auto" frameborder="no" width="100%"
+                height="100%"></iframe>
         </div>
 
         <div class="layui-footer" style="text-align: center;">
             <!-- 底部固定区域 -->
             The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
-            &lt;<i class="layui-icon layui-icon-email"></i>:<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
+            &lt;<i class="layui-icon layui-icon-email"></i>:<a
+                href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
             <script> document.getElementById("footerLicenseCurrentFullYear").innerText = new Date().getFullYear() </script>
         </div>
     </div>
