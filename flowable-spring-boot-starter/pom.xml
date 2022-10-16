@@ -39,6 +39,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
     <hutool.version>5.8.8</hutool.version>
     <flowable.version>6.7.2</flowable.version>
   </properties>
@@ -49,7 +50,11 @@
       <artifactId>hutool-all</artifactId>
       <version>${hutool.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.github.mengweijin</groupId>
+      <artifactId>quickboot-layui</artifactId>
+      <version>${quickboot-layui.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.flowable</groupId>
       <artifactId>flowable-spring-boot-starter-rest</artifactId>

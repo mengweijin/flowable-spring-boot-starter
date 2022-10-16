@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('工作流 Flowable')"></head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+
+        <div class="layui-header">
+            <!--/** 添加/取消 layui-bg-black 即可切换跟侧边栏还是标题栏颜色保持一致。**/-->
+            <div class="layui-logo layui-hide-xs">
+                <img th:src="@{/image/logo.png}" style="cursor: pointer;"
+                    onclick="javascript:top.window.location.href='/flowable-ui'" />
+            </div>
+
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left" lay-bar="disabled">
+                <!-- 移动端显示 -->
+                <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </li>
+                <li class="layui-nav-item" lay-unselect lay-header-event="shrink">
+                    <a href="javascript:;"><i id="shrinkSpreadIcon" class="layui-icon layui-icon-shrink-right"
+                            style="font-size: 20px;"></i></a>
+                </li>
+            </ul>
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item" lay-unselect lay-header-event="notice" style="width: 100px;">
+                    <a href="javascript:;">
+                        <i class="layui-icon layui-icon-notice" style="font-size: 20px;"></i>
+                        <span class="layui-badge">99+</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item">
+                        <a href="javascript:top.window.location.href='/flowable-ui';"><i class="fa-solid fa-house" style="margin-right: 10px;"></i>首页</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:javascript:frame('flowable-ui/user');"><i class="fas fa-file-lines" style="margin-right: 10px;"></i>用户</a>
+                    </li>
+                    <li class="layui-nav-item"><a href="https://gitee.com/mengweijin" target="_blank"><i
+                                class="fa-solid fa-link" style="margin-right: 10px;"></i>Gitee</a></li>
+                    <li class="layui-nav-item"><a href="https://github.com/mengweijin" target="_blank"><i
+                                class="fa-solid fa-link" style="margin-right: 10px;"></i>Github</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <iframe id="mainFrame" src="/quickboot/demo/img" scrolling="auto" frameborder="no" width="100%" height="100%"></iframe>
+        </div>
+
+        <div class="layui-footer" style="text-align: center;">
+            <!-- 底部固定区域 -->
+            The Apache License 2.0 Copyright © 2018~<span id="footerLicenseCurrentFullYear"></span> Meng Wei Jin
+            &lt;<i class="layui-icon layui-icon-email"></i>:<a href="mailto:mengweijin.work@foxmail.com">mengweijin.work@foxmail.com</a>&gt;
+            <script> document.getElementById("footerLicenseCurrentFullYear").innerText = new Date().getFullYear() </script>
+        </div>
+    </div>
+
+    <!--/** thymeleaf 中一定要使用 th:inline="javascript"，否则 [[${变量名}]] 从后端中取得的值是一个字符串，而不是一个 json 对象 **/-->
+    <script th:inline="javascript">
+        layui.use(['element', 'layer', 'util', 'jquery', 'quickboot'], function () {
+            let element = layui.element, layer = layui.layer, util = layui.util, $ = layui.$, qb = layui.quickboot;
+            // let args = [[${args}]];
+            //头部事件
+            util.event('lay-header-event', {
+                shrink: function (othis) {
+                    let $btn = $("#shrinkSpreadIcon");
+                    if ($btn.hasClass('layui-icon-shrink-right')) {
+                        $btn.removeClass('layui-icon-shrink-right').addClass('layui-icon-spread-left');
+                        $(".layui-side").animate({ width: 'toggle' }); //toggle如果原来div是隐藏的就会把元素显示，如果原来是显示则隐藏
+                        $(".layui-body").animate({ left: '0px' });
+                        $(".layui-footer").animate({ left: '0px' });
+                    } else if ($btn.hasClass('layui-icon-spread-left')) {
+                        $btn.removeClass('layui-icon-spread-left').addClass('layui-icon-shrink-right');
+                        $(".layui-side").animate({ width: 'toggle' });
+                        $(".layui-body").animate({ left: '200px' });
+                        $(".layui-footer").animate({ left: '200px' });
+                    }
+                },
+                notice: function () {
+                    layer.open({
+                        title: '查看通知',
+                        type: 1,
+                        content: '<div style="padding: 15px;">查看通知操作</div>',
+                        area: ['350px', '80%'],
+                        offset: 'rb', //右下角
+                        anim: 5,
+                        shadeClose: true
+                    });
+                }
+            });
+        });
+
+        function frame(url) {
+            document.getElementById('mainFrame').setAttribute('src', url);
+        }
+    </script>
+</body>
+
+</html>
