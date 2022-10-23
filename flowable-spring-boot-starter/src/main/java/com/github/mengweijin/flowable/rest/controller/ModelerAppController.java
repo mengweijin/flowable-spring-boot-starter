@@ -58,11 +58,18 @@ public class ModelerAppController {
         return userRepresentation;
     }
 
-    @GetMapping(value = "/rest/models")
+    @Deprecated
+    //@GetMapping(value = "/rest/models")
     public ResultListDataRepresentation getModels(@RequestParam(required = false) String filterText) {
         List<ModelEntityImpl> list = modelService.likeSearch(filterText);
         List<ModelRepresentation> result = list.stream().map(ModelRepresentation::toModelRepresentation).collect(Collectors.toList());
         return new ResultListDataRepresentation(result);
+    }
+
+    @GetMapping(value = "/rest/models")
+    public ResultListDataRepresentation getModelEntity(@RequestParam(required = false) String filterText) {
+        List<ModelEntityImpl> list = modelService.likeSearch(filterText);
+        return new ResultListDataRepresentation(list);
     }
 
     @GetMapping(value = "/rest/models/{modelId}")

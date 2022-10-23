@@ -83,15 +83,17 @@
 					<col width="300">
 					<col>
 					<col width="200">
-					<col width="240">
-					<col width="120">
+					<col width="170">
+					<col width="170">
+					<col width="180">
 				</colgroup>
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Name</th>
-						<th>Key</th>
-						<th>Update Time</th>
+						<th>NAME</th>
+						<th>KEY</th>
+						<th>CREATE_TIME</th>
+						<th>UPDATE_TIME</th>
 						<th>Operation</th>
 					</tr>
 				</thead>
@@ -100,10 +102,10 @@
 						<td>{{process.id}}</td>
 						<td>{{process.name}}</td>
 						<td>{{process.key}}</td>
-						<td>{{process.lastUpdated}}</td>
+						<td>{{process.createTime | date : 'yyyy-MM-dd hh:mm:ss' }}</td>
+						<td>{{process.lastUpdateTime | date : 'yyyy-MM-dd hh:mm:ss' }}</td>
 						<td>
-							<a href="javascript:;" lay-event="detail" title="Detail"
-								style="margin-right: 10px;"
+							<a href="javascript:;" lay-event="detail" title="Detail" style="margin-right: 10px;"
 								ng-click="showProcessDetails(process); $event.stopPropagation();"
 								title="{{'PROCESS.ACTION.DETAILS' | translate}}">
 								<i class="layui-icon layui-icon-search" style="color: #1E9FFF; font-weight: bold;"></i>
@@ -111,14 +113,21 @@
 							<a href="javascript:;" lay-event="edit" title="Edit" style="margin-right: 10px;"
 								ng-click="editProcessDetails(process); $event.stopPropagation();"
 								title="{{'PROCESS.ACTION.OPEN-IN-EDITOR' | translate}}">
-								<i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i>
+								<i class="fa-regular fa-pen-to-square" style="color: #1E9FFF; font-weight: bold;"></i>
+								<!-- <i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i> -->
 							</a>
 							<a href="javascript:;" lay-event="deploy" title="Deploy" style="margin-right: 10px;">
-								<i class="layui-icon layui-icon-release" style="color: #1E9FFF; font-weight: bold;"></i>
+								<i class="layui-icon layui-icon-release" style="color: #1E9FFF; font-weight: bold;"
+									data-id="{{process.id}}"></i>
 							</a>
-							<a class="layui-hide" href="javascript:;" lay-event="delete" title="Delete"
+							<a href="javascript:;" lay-event="clone" title="Clone" style="margin-right: 10px;">
+								<i class="fa-solid fa-clone" style="color: #1E9FFF; font-weight: bold;"
+									data-id="{{process.id}}"></i>
+							</a>
+							<a href="javascript:;" lay-event="delete" title="Delete"
 								style="margin-right: 10px;">
-								<i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i>
+								<i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"
+									data-id="{{process.id}}"></i>
 							</a>
 						</td>
 					</tr>
@@ -160,10 +169,28 @@
 </div>
 
 <script>
-	layui.use(['table', 'layer', 'util'], function () {
-		let table = layui.table, layer = layui.layer, util = layui.util;
+	layui.use(['table', 'layer', 'util', 'jquery'], function () {
+		let table = layui.table, layer = layui.layer, jQuery = layui.jquery, $ = layui.$, util = layui.util;
+		util.event('lay-event', {
+			clone: function (othis) {
+				let id = $(othis.html()).attr('data-id');
 
-		
+			}
+			, deploy: function (othis) {
+				let id = $(othis.html()).attr('data-id');
+
+			}
+			, delete: function (othis) {
+				let id = $(othis.html()).attr('data-id');
+				layer.confirm('确定删除吗？', function (index) {
+					$.delete("/flowable/process/model/" + id, function (res) {
+						$('div.filter-wrapper ul.filter-list li a[ng-click="activateFilter(filter)"]').click();
+						layer.close(index);
+					});
+				});
+			}
+		});
+
 	});
 
 
