@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.188.128:3306/flowable
+    url: jdbc:mysql://localhost:3306/flowable
     username: root
     password: root
 decorator:

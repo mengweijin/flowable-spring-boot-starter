@@ -1,5 +1,9 @@
 package com.github.mengweijin.flowable.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mengweijin.flowable.idm.DBConfiguration;
+import com.github.mengweijin.flowable.idm.DBIdmEngineConfigurator;
+import org.flowable.rest.service.api.RestResponseFactory;
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +22,11 @@ public class FlowableSpringBootAutoConfiguration implements EngineConfigurationC
         return new FlowableBeanDefinitionRegistryPostProcessor();
     }
 
+    @Bean
+    public RestResponseFactory restResponseFactory(ObjectMapper objectMapper) {
+        return new RestResponseFactory(objectMapper);
+    }
+
     /**
      * 解决中文乱码
      */
@@ -26,5 +35,9 @@ public class FlowableSpringBootAutoConfiguration implements EngineConfigurationC
         //engineConfiguration.setActivityFontName("宋体");
         //engineConfiguration.setLabelFontName("宋体");
         //engineConfiguration.setAnnotationFontName("宋体");
+
+        DBIdmEngineConfigurator dbIdmEngineConfigurator = new DBIdmEngineConfigurator();
+        dbIdmEngineConfigurator.setDbConfiguration(new DBConfiguration());
+        engineConfiguration.setIdmEngineConfigurator(dbIdmEngineConfigurator);
     }
 }

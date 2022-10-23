@@ -20,6 +20,7 @@ public class FlowableBeanDefinitionRegistryPostProcessor implements BeanDefiniti
         String quickBootPackage = ClassUtil.getPackage(FlowableBeanDefinitionRegistryPostProcessor.class);
         quickBootPackage = StrUtil.subBefore(quickBootPackage, ".", true);
         scanner.scan(quickBootPackage);
+        scanner.scan("org.flowable.rest");
     }
 
     @Override
