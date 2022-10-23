@@ -53,7 +53,7 @@ public class ModelRepresentation {
         representation.setCreatedBy(null);
         representation.setLastUpdatedBy(null);
         representation.setLastUpdated(model.getLastUpdateTime());
-        representation.setLatestVersion(false);
+        representation.setLatestVersion(true);
         representation.setVersion(model.getVersion());
         representation.setComment(null);
         representation.setModelType(null);
