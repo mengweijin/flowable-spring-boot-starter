@@ -62,7 +62,7 @@ public class ModelRepresentation {
         return representation;
     }
 
-    public static String createModelJson(ObjectMapper objectMapper, ModelRepresentation model) {
+    public static String createModelJson(ObjectMapper objectMapper, ModelRepresentation representation) {
         ObjectNode editorNode = objectMapper.createObjectNode();
         editorNode.put("id", "canvas");
         editorNode.put("resourceId", "canvas");
@@ -70,10 +70,10 @@ public class ModelRepresentation {
         stencilSetNode.put("namespace", "http://b3mn.org/stencilset/bpmn2.0#");
         editorNode.set("stencilset", stencilSetNode);
         ObjectNode propertiesNode = objectMapper.createObjectNode();
-        propertiesNode.put("process_id", model.getKey());
-        propertiesNode.put("name", model.getName());
-        if (StringUtils.isNotEmpty(model.getDescription())) {
-            propertiesNode.put("documentation", model.getDescription());
+        propertiesNode.put("process_id", representation.getKey());
+        propertiesNode.put("name", representation.getName());
+        if (StringUtils.isNotEmpty(representation.getDescription())) {
+            propertiesNode.put("documentation", representation.getDescription());
         }
         editorNode.set("properties", propertiesNode);
 
