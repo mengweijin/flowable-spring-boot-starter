@@ -8,6 +8,8 @@ import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 增加 RestResponseFactory 和 ContentTypeResolver 提供 rest服务。flowable 官方 starter 默认不提供。
@@ -15,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
  **/
 
 @Configuration
-public class FlowableSpringBootAutoConfiguration implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
+public class FlowableSpringBootAutoConfiguration implements WebMvcConfigurer, EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
 
     @Bean
     public FlowableBeanDefinitionRegistryPostProcessor flowableBeanDefinitionRegistryPostProcessor() {
@@ -39,5 +41,10 @@ public class FlowableSpringBootAutoConfiguration implements EngineConfigurationC
         DBIdmEngineConfigurator dbIdmEngineConfigurator = new DBIdmEngineConfigurator();
         dbIdmEngineConfigurator.setDbConfiguration(new DBConfiguration());
         engineConfiguration.setIdmEngineConfigurator(dbIdmEngineConfigurator);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/flowable/process/model").setViewName("flowable/model/list.html");
     }
 }

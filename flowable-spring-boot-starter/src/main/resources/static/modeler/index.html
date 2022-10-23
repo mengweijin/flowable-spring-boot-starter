@@ -53,7 +53,7 @@
                     <img ng-src="images/flowable-logo.png" ng-srcset="images/flowable-logo.png 1x, images/flowable-logo@2x.png 2x">
                 </a>
                 <!-- 修改-->
-                <ul class="nav navbar-nav" id="main-nav" ng-show="authenticated" style="display: none;">
+                <ul class="nav navbar-nav layui-hide" id="main-nav" ng-show="authenticated">
                     <li ng-class="{'active' : item.id == mainPage.id}" ng-repeat="item in mainNavigation">
                         <a ng-click="setMainPage(item)">{{item.title | translate}}</a>
                     </li>

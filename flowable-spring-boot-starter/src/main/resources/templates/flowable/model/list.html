@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="quickboot/include::head('工作流 Flowable')"></head>
+
+<body>
+    <div style="padding: 15px 15px;">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" style="margin-bottom: 0px;">
+                <div class="layui-inline">
+                    <label class="layui-form-label">NAME/KEY: </label>
+                    <div class="layui-input-inline">
+                        <input name="filterText" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="search_form_filter"><i
+                        class="layui-icon layui-icon-search"></i> 搜索</button>
+                    <button type="reset" class="layui-btn layui-btn-normal"><i
+                        class="layui-icon layui-icon-refresh-3"></i> 重置</button>
+                </div>
+            </div>
+        </form>
+
+
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-container">
+                <button lay-event="add"         class="layui-btn layui-btn-normal layui-btn-sm"><i class="layui-icon layui-icon-addition"></i> 添加</button>
+                <button lay-event="batchDelete" class="layui-btn layui-btn-danger layui-btn-sm layui-hide"><i class="layui-icon layui-icon-delete"></i> 批量删除</button>
+            </div>
+        </script>
+        <table id="main_table" lay-filter="main_table_filter"></table>
+        <script type="text/html" id="operationTpl">
+            <a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;">
+                <i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i>
+            </a>
+            <a href="#" lay-event="clone" title="Clone" style="margin-right: 10px;">
+                <i class="fa-solid fa-clone"            style="color: #1E9FFF; font-weight: bold;"></i>
+            </a>
+            <a href="#" lay-event="release" title="Release" style="margin-right: 10px;">
+                <i class="layui-icon layui-icon-release"   style="color: #1E9FFF; font-weight: bold;"></i>
+            </a>
+            <a href="#" lay-event="edit" title="Edit"     style="margin-right: 10px;">
+                <i class="layui-icon layui-icon-edit"   style="color: #1E9FFF; font-weight: bold;"></i>
+            </a>
+            <a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;">
+                <i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i>
+            </a>
+        </script>
+    </div>
+
+    <script>
+        layui.use(['jquery', 'layer', 'form', 'table', 'quickboot'], function () {
+            var $ = layui.$, layer = layui.layer, form = layui.form, table = layui.table, qb = layui.quickboot;
+
+            //第一个实例
+            table.render({
+                id: 'main_table'
+                , elem: '#main_table'
+                , skin: 'line'
+                , url: '/flowable/process/model/page'
+                , where: {}
+                , toolbar: '#toolbar'
+                , defaultToolbar: ['filter', 'print', 'exports']
+                , page: { theme: '#1E9FFF' }
+                , request: {
+                    pageName: 'current' //页码的参数名称，默认：page
+                    , limitName: 'size' //每页数据量的参数名，默认：limit
+                }
+                , cols: [
+                    [
+                        { type: 'checkbox', hide: true }
+                        , { field: 'id', title: 'ID', width: 320 }
+                        , { field: 'name', title: 'NAME', minWidth: 150 }
+                        , { field: 'key', title: 'KEY', width: 200 }
+                        , { field: 'deploymentId', title: 'DEPLOYMENT_ID', width: 150, hide: true }
+                        , { field: 'version', title: 'VERSION', width: 100, hide: true }
+                        , { field: 'revision', title: 'REVISION', width: 100, hide: true }
+                        , { field: 'createTime', title: 'CREATE_TIME', width: 170, templet: "<div>{{layui.util.toDateString(d.createTime)}}</div>" }
+                        , { field: 'lastUpdateTime', title: 'UPDATE_TIME', width: 170, templet: "<div>{{layui.util.toDateString(d.lastUpdateTime)}}</div>" }
+                        , { field: 'metaInfo', title: 'META_INFO', minWidth: 300, hide: true }
+                        , { field: 'operation', title: 'OPERATION', width: 200, fixed: 'right', templet: '#operationTpl' }
+                    ]
+                ]
+            });
+
+            //触发事件
+            table.on('toolbar(main_table_filter)', function (obj) {
+                //var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add':
+                        qb.openPage('新增', '/datasource/add')
+                        break;
+                    case 'batchDelete':
+                        layer.msg('批量删除');
+                        break;
+                };
+            });
+
+            //单元格工具事件
+            table.on('tool(main_table_filter)', function (obj) {
+                var row = obj.data; //获得当前行数据
+
+                switch (obj.event) {
+                    case 'detail':
+                        qb.openPage('', '/modeler/index.html#/processes/' + row.id, { maxmin: false, area: ['100%', '100%']});
+                        break;
+                    case 'edit':
+                        qb.openPage('', '/modeler/index.html#/editor/' + row.id, { maxmin: false, area: ['100%', '100%']});
+                        break;
+                    case 'delete':
+                        layer.confirm('确定删除吗？', function (index) {
+                            $.delete("datasource/delete/" + row.id, function (res) {
+                                if (res.code === 200) {
+                                    obj.del(); // 删除对应行（tr）的 DOM 结构，并更新缓存
+                                }
+                                layer.close(index);
+                            });
+                        });
+                        break;
+                }
+            })
+
+            /* 监听表单提交——查询按钮——重载表格 */
+            form.on('submit(search_form_filter)', function (data) {
+                //console.log(data.field); //当前容器的全部表单字段，名值对形式：{name: value}
+                qb.reloadTableData('main_table', data.field);
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        });
+    </script>
+</body>
+
+</html>
