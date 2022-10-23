@@ -1,4 +1,4 @@
-package com.github.mengweijin.flowable.rest.representation;
+package com.github.mengweijin.flowable.rest.copy.representation;
 
 import lombok.Data;
 import org.flowable.idm.api.User;

@@ -4,14 +4,15 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.PageUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.mengweijin.flowable.rest.representation.ModelRepresentation;
-import com.github.mengweijin.flowable.rest.representation.ResultListDataRepresentation;
+import com.github.mengweijin.flowable.rest.copy.representation.ModelRepresentation;
+import com.github.mengweijin.flowable.rest.copy.representation.ResultListDataRepresentation;
 import com.github.mengweijin.flowable.rest.service.ModelService;
 import com.github.mengweijin.layui.model.LayuiTable;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.impl.persistence.entity.ModelEntityImpl;
 import org.flowable.engine.repository.Model;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,10 +57,16 @@ public class ModelController {
         return ModelRepresentation.toModelRepresentation(model);
     }
 
-    @GetMapping(value = "/rest/models/{modelId}/editor/json")
+    @GetMapping(value = {"/rest/models/{modelId}/editor/json"})
     public ObjectNode getModelJSON(@PathVariable String modelId) {
         return modelService.getModelJSON(modelId);
     }
+
+    @GetMapping(value = "/rest/models/{modelId}/model-json")
+    public JsonNode getDisplayModelJSON(@PathVariable String modelId) {
+        return modelService.getDisplayModelJSON(modelId);
+    }
+
 
     @GetMapping(value = "/rest/stencil-sets/editor", produces = "application/json")
     public JsonNode getStencilSetForEditor() {
@@ -78,5 +85,8 @@ public class ModelController {
         return ModelRepresentation.toModelRepresentation(model);
     }
 
-
+    @DeleteMapping(value = "/rest/models/{modelId}")
+    public void delete(@PathVariable String modelId) {
+        modelService.deleteById(modelId);
+    }
 }

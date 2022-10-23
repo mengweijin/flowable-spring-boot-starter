@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="col-xs-10 item-wrapper" id="list-items">
-		<div class="dropdown-subtle pull-right">
+		<div class="dropdown-subtle pull-right layui-hide">
 			<div class="btn-group btn-group-sm" activiti-fix-dropdown-bug>
 				<button type="button" class="btn btn-default dropdown-toggle"
 					data-toggle="dropdown">{{'PROCESS-LIST.SORT.' + model.activeSort.labelKey | translate}} <i
@@ -77,45 +77,51 @@
 			</div>
 		</div>
 
-		<div>
-			<table class="layui-table">
+		<div ng-if="model.processes.size > 0 || (model.filterText && model.filterText != '')">
+			<table class="layui-table" lay-filter="model-table-filter">
 				<colgroup>
-				  <col width="300">
-				  <col>
-				  <col width="200">
-				  <col width="240">
-				  <col width="120">
+					<col width="300">
+					<col>
+					<col width="200">
+					<col width="240">
+					<col width="120">
 				</colgroup>
 				<thead>
-				  <tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Key</th>
-					<th>Update Time</th>
-					<th>Operation</th>
-				  </tr> 
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Key</th>
+						<th>Update Time</th>
+						<th>Operation</th>
+					</tr>
 				</thead>
 				<tbody>
-				  <tr ng-repeat="process in model.processes.data track by $index">
-					<td>{{process.id}}</td>
-					<td>{{process.name}}</td>
-					<td>{{process.key}}</td>
-					<td>{{process.lastUpdated}}</td>
-					<td>
-						<a href="#" lay-event="detail" title="Detail" style="margin-right: 10px;" ng-click="showProcessDetails(process); $event.stopPropagation();" title="{{'PROCESS.ACTION.DETAILS' | translate}}">
-							<i class="layui-icon layui-icon-list"   style="color: #1E9FFF; font-weight: bold;"></i>
-						</a>
-						<a href="#" lay-event="edit" title="Edit" style="margin-right: 10px;" ng-click="editProcessDetails(process); $event.stopPropagation();" title="{{'PROCESS.ACTION.OPEN-IN-EDITOR' | translate}}">
-							<i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i>
-						</a>
-						<a href="#" lay-event="delete" title="Delete" style="margin-right: 10px;">
-							<i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i>
-						</a>
-					</td>
-				  </tr>
-				  
+					<tr ng-repeat="process in model.processes.data track by $index">
+						<td>{{process.id}}</td>
+						<td>{{process.name}}</td>
+						<td>{{process.key}}</td>
+						<td>{{process.lastUpdated}}</td>
+						<td>
+							<a href="javascript:;" lay-event="detail" title="Detail"
+								style="margin-right: 10px;"
+								ng-click="showProcessDetails(process); $event.stopPropagation();"
+								title="{{'PROCESS.ACTION.DETAILS' | translate}}">
+								<i class="layui-icon layui-icon-search" style="color: #1E9FFF; font-weight: bold;"></i>
+							</a>
+							<a href="javascript:;" lay-event="edit" title="Edit" style="margin-right: 10px;"
+								ng-click="editProcessDetails(process); $event.stopPropagation();"
+								title="{{'PROCESS.ACTION.OPEN-IN-EDITOR' | translate}}">
+								<i class="layui-icon layui-icon-edit" style="color: #1E9FFF; font-weight: bold;"></i>
+							</a>
+							<a class="layui-hide" href="javascript:;" lay-event="delete" title="Delete"
+								style="margin-right: 10px;">
+								<i class="layui-icon layui-icon-delete" style="color: #FF5722; font-weight: bold;"></i>
+							</a>
+						</td>
+					</tr>
+
 				</tbody>
-			  </table>
+			</table>
 		</div>
 		<!--
 			<div class="item fadein" ng-repeat="process in model.processes.data track by $index">
@@ -154,5 +160,8 @@
 	layui.use(['table', 'layer', 'util'], function () {
 		let table = layui.table, layer = layui.layer, util = layui.util;
 
+		
 	});
+
+
 </script>
