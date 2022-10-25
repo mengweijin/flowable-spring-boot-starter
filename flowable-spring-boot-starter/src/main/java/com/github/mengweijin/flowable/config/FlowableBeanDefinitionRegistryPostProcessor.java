@@ -2,6 +2,7 @@ package com.github.mengweijin.flowable.config;
 
 import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
+import org.flowable.rest.servlet.FlowableServletContextListener;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -17,10 +18,13 @@ public class FlowableBeanDefinitionRegistryPostProcessor implements BeanDefiniti
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanDefinitionRegistry) throws BeansException {
         ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(beanDefinitionRegistry);
-        String quickBootPackage = ClassUtil.getPackage(FlowableBeanDefinitionRegistryPostProcessor.class);
-        quickBootPackage = StrUtil.subBefore(quickBootPackage, ".", true);
-        scanner.scan(quickBootPackage);
-        scanner.scan("org.flowable.rest");
+        String pkg = ClassUtil.getPackage(FlowableBeanDefinitionRegistryPostProcessor.class);
+        pkg = StrUtil.subBefore(pkg, ".", true);
+        scanner.scan(pkg);
+
+        pkg = ClassUtil.getPackage(FlowableServletContextListener.class);
+        pkg = StrUtil.subBefore(pkg, ".", true);
+        scanner.scan(pkg);
     }
 
     @Override

@@ -48,7 +48,7 @@
 </head>
 <body ng-app="flowableModeler" ng-cloak>
 
-    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="main-header">
+    <div class="navbar navbar-fixed-top navbar-inverse layui-hide" role="navigation" id="main-header">
         <div class="fixed-container">
             <div class="navbar-header">
                 <a ng-click="backToLanding()" class="landing-logo" ng-if="account != null && account != undefined" title="{{'GENERAL.MAIN-TITLE' | translate}}">
@@ -121,7 +121,7 @@
         </div>
     </div>
 
-    <div id="main" class="wrapper full clearfix" ng-view="" ng-cloak ng-style="{height: window.height + 'px'}">
+    <div id="main" class="wrapper full clearfix" ng-view="" ng-cloak ng-style="{height: window.height + 'px'}" style="padding: 0 0; overflow: auto;">
     </div>
 
 <!--[if lt IE 9]>

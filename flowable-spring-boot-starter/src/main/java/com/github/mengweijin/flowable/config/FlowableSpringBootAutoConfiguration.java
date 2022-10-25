@@ -45,6 +45,6 @@ public class FlowableSpringBootAutoConfiguration implements WebMvcConfigurer, En
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/flowable/process/model").setViewName("flowable/model/list.html");
+        registry.addViewController("/flowable-ui").setViewName("flowable/index.html");
     }
 }
