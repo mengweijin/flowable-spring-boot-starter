@@ -1,6 +1,7 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.mengweijin.flowable.config.FlowableSpringBootAutoConfiguration
+    com.github.mengweijin.flowable.FlowableSecurityConfigurerAdapter,\
+    com.github.mengweijin.flowable.FlowableSecurityAutoConfiguration
 
 
 

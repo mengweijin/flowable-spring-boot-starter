@@ -1,7 +1,6 @@
-package com.github.mengweijin.flowable.config;
+package com.github.mengweijin.flowable;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.flowable.rest.service.api.RestResponseFactory;
+import com.github.mengweijin.flowable.processor.FlowableBeanDefinitionRegistryPostProcessor;
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -10,22 +9,12 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 增加 RestResponseFactory 和 ContentTypeResolver 提供 rest服务。flowable 官方 starter 默认不提供。
+ * 去掉登录验证后，直接访问：http://localhost:8081/modeler/#/processes
  * @author Meng Wei Jin
  **/
 
-@Configuration
-public class FlowableSpringBootAutoConfiguration implements WebMvcConfigurer, EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
-
-    @Bean
-    public FlowableBeanDefinitionRegistryPostProcessor flowableBeanDefinitionRegistryPostProcessor() {
-        return new FlowableBeanDefinitionRegistryPostProcessor();
-    }
-
-    @Bean
-    public RestResponseFactory restResponseFactory(ObjectMapper objectMapper) {
-        return new RestResponseFactory(objectMapper);
-    }
+@Configuration(proxyBeanMethods = false)
+public class FlowableSecurityAutoConfiguration implements WebMvcConfigurer, EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
 
     /**
      * 解决中文乱码
@@ -39,5 +28,10 @@ public class FlowableSpringBootAutoConfiguration implements WebMvcConfigurer, En
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+    }
+
+    @Bean
+    public FlowableBeanDefinitionRegistryPostProcessor flowableBeanDefinitionRegistryPostProcessor() {
+        return new FlowableBeanDefinitionRegistryPostProcessor();
     }
 }

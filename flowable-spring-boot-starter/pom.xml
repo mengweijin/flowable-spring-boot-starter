@@ -62,12 +62,27 @@
     </dependency>
     <dependency>
       <groupId>org.flowable</groupId>
-      <artifactId>flowable-json-converter</artifactId>
+      <artifactId>flowable-spring-boot-starter-rest</artifactId>
       <version>${flowable.version}</version>
     </dependency>
     <dependency>
       <groupId>org.flowable</groupId>
-      <artifactId>flowable-ui-modeler-frontend</artifactId>
+      <artifactId>flowable-spring-boot-starter-ui-modeler</artifactId>
+      <version>${flowable.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flowable</groupId>
+      <artifactId>flowable-spring-boot-starter-ui-idm</artifactId>
+      <version>${flowable.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flowable</groupId>
+      <artifactId>flowable-spring-boot-starter-ui-task</artifactId>
+      <version>${flowable.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flowable</groupId>
+      <artifactId>flowable-spring-boot-starter-ui-admin</artifactId>
       <version>${flowable.version}</version>
     </dependency>
     <dependency>
