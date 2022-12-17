@@ -8,11 +8,11 @@
     <relativePath/>
   </parent>
   <groupId>com.github.mengweijin</groupId>
-  <artifactId>sample-flowable-ui</artifactId>
+  <artifactId>flowable-ui-modeler</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>sample-flowable-ui</name>
+  <name>flowable-ui-modeler</name>
   <url>http://maven.apache.org</url>
 
   <properties>
