@@ -39,8 +39,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <quickboot-layui.version>1.1.1-SNAPSHOT</quickboot-layui.version>
-    <hutool.version>5.8.8</hutool.version>
+    <vitality-layui.version>1.2.1</vitality-layui.version>
+    <hutool.version>5.8.10</hutool.version>
     <flowable.version>6.7.2</flowable.version>
   </properties>
 
@@ -52,8 +52,8 @@
     </dependency>
     <dependency>
       <groupId>com.github.mengweijin</groupId>
-      <artifactId>quickboot-layui</artifactId>
-      <version>${quickboot-layui.version}</version>
+      <artifactId>vitality-layui</artifactId>
+      <version>${vitality-layui.version}</version>
     </dependency>
     <dependency>
       <groupId>org.flowable</groupId>

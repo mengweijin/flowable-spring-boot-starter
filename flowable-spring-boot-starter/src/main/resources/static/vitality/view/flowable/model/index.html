@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>流程模型</title>
+		<link rel="stylesheet" href="../../../component/pear/css/pear.css" />
+	</head>
+	<body class="pear-container">
+		<div class="layui-card">
+			<div class="layui-card-body">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<div class="layui-form-item layui-inline">
+							<label class="layui-form-label">Name</label>
+							<div class="layui-input-inline">
+								<input type="text" name="name" placeholder="" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item layui-inline">
+							<label class="layui-form-label">Key</label>
+							<div class="layui-input-inline">
+								<input type="text" name="key" placeholder="" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item layui-inline">
+							<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="gen-query">
+								<i class="layui-icon layui-icon-search"></i>查询
+							</button>
+							<button type="reset" class="pear-btn pear-btn-md">
+								<i class="layui-icon layui-icon-refresh"></i>重置
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="layui-card">
+			<div class="layui-card-body">
+				<table id="model-table" lay-filter="model-table"></table>
+			</div>
+		</div>
+
+		<script type="text/html" id="model-toolbar">
+			<button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+				<i class="layui-icon layui-icon-add-1"></i>新增
+			</button>
+		</script>
+		<script type="text/html" id="operationTpl">
+			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">
+				<i class="layui-icon layui-icon-edit"></i>
+			</button>
+			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove">
+				<i class="layui-icon layui-icon-delete"></i>
+			</button>
+		</script>
+
+		<script src="../../../component/layui/layui.js"></script>
+		<script src="../../../component/pear/pear.js"></script>
+		<script>
+			layui.use(['table', 'form', 'jquery','common', 'admin', 'util'], function() {
+				let table = layui.table;
+				let form = layui.form;
+				let $ = layui.jquery;
+				let common = layui.common;
+				let admin = layui.admin;
+				let util = layui.util;
+
+				let cols = [
+					[
+						{ type: 'checkbox', hide: true },
+                        { field: 'id', title: 'ID', width: 300 },
+                        { field: 'name', title: 'Name', minWidth: 200 },
+                        { field: 'key', title: 'Key', width: 200 },
+                        { field: 'version', title: 'Version', width: 80 },
+                        { field: 'createTime', title: 'Create Time', width: 200, templet: function(d) {
+							return layui.util.toDateString(d.createTime, 'yyyy-MM-dd HH:mm:ss');
+                        } },
+                        { field: 'operation', title: '操作', width: 200, fixed: 'right', templet: '#operationTpl' }
+					]
+				]
+
+				table.render({
+					elem: '#model-table',
+					url: '/flowable/process/model/list',
+					page: true,
+					cols: cols,
+					skin: 'line',
+					toolbar: '#model-toolbar',
+					defaultToolbar: [{
+						title: '刷新',
+						layEvent: 'refresh',
+						icon: 'layui-icon-refresh',
+					}, 'filter', 'print', 'exports']
+				});
+
+				table.on('toolbar(model-table)', function(obj) {
+					if (obj.event === 'refresh') {
+						window.refresh();
+					}
+				});
+
+				table.on('tool(model-table)', function(obj) {
+					var row = obj.data;
+					if (obj.event === 'remove') {
+						window.remove(row.id)
+					} else if (obj.event === 'edit') {
+						window.edit(row.id, row.name)
+					}
+				});
+
+				form.on('submit(gen-query)', function(data) {
+					window.refresh(data.field)
+					return false;
+				});
+
+
+				window.remove = function(id) {
+					layer.confirm('确定删除？', {
+						icon: 3,
+						title: '提示'
+					}, function(index) {
+						layer.close(index);
+						let loading = layer.load();
+						$.ajax({
+							url: "/process-api/repository/models/" + id,
+							dataType: 'json',
+							type: 'delete',
+							success: function(result) {
+								layer.close(loading);
+								window.refresh();
+							}
+						})
+					});
+				}
+
+				window.refresh = function(field = {}) {
+					table.reload('model-table', { where: field })
+				}
+
+				window.edit = function(id, name) {
+					top.layui.admin.jump(id, '编辑【' + name + '】', 'view/generator/detail.html?modelId=' + id)
+				}
+
+			})
+		</script>
+	</body>
+</html>

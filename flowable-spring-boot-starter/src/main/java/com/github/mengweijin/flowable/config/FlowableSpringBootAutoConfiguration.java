@@ -1,8 +1,6 @@
 package com.github.mengweijin.flowable.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mengweijin.flowable.idm.DBConfiguration;
-import com.github.mengweijin.flowable.idm.DBIdmEngineConfigurator;
 import org.flowable.rest.service.api.RestResponseFactory;
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
@@ -37,14 +35,9 @@ public class FlowableSpringBootAutoConfiguration implements WebMvcConfigurer, En
         //engineConfiguration.setActivityFontName("宋体");
         //engineConfiguration.setLabelFontName("宋体");
         //engineConfiguration.setAnnotationFontName("宋体");
-
-        DBIdmEngineConfigurator dbIdmEngineConfigurator = new DBIdmEngineConfigurator();
-        dbIdmEngineConfigurator.setDbConfiguration(new DBConfiguration());
-        engineConfiguration.setIdmEngineConfigurator(dbIdmEngineConfigurator);
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/flowable-ui").setViewName("flowable/index.html");
     }
 }
