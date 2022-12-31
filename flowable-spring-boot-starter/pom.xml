@@ -39,9 +39,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <vitality-layui.version>1.2.1</vitality-layui.version>
-    <hutool.version>5.8.10</hutool.version>
-    <flowable.version>6.7.2</flowable.version>
+    <vitality-layui.version>1.2.2</vitality-layui.version>
+    <hutool.version>5.8.11</hutool.version>
+    <flowable.version>6.8.0</flowable.version>
   </properties>
 
   <dependencies>
@@ -103,18 +103,5 @@
       <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
-
-  <repositories>
-    <repository>
-      <id>aliyun</id>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>aliyun</id>
-      <url>https://maven.aliyun.com/repository/public</url>
-    </pluginRepository>
-  </pluginRepositories>
 
 </project>

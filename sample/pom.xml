@@ -18,7 +18,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <flowable-spring-boot-starter.version>1.0-SNAPSHOT</flowable-spring-boot-starter.version>
-    <generator-spring-boot-starter.version>1.0.2-SNAPSHOT</generator-spring-boot-starter.version>
+    <generator-spring-boot-starter.version>1.0.4</generator-spring-boot-starter.version>
     <p6spy-spring-boot-starter.version>1.8.1</p6spy-spring-boot-starter.version>
   </properties>
 
