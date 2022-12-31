@@ -38,10 +38,13 @@
   </issueManagement>
 
   <properties>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <vitality-layui.version>1.2.2</vitality-layui.version>
     <hutool.version>5.8.11</hutool.version>
-    <flowable.version>6.8.0</flowable.version>
+    <flowable.version>6.7.2</flowable.version>
   </properties>
 
   <dependencies>

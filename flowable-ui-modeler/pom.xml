@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.2</version>
+    <version>2.7.6</version>
     <relativePath/>
   </parent>
   <groupId>com.github.mengweijin</groupId>
@@ -17,7 +17,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <flowable.version>6.7.2</flowable.version>
+    <flowable.version>6.8.0</flowable.version>
     <p6spy-spring-boot-starter.version>1.8.1</p6spy-spring-boot-starter.version>
   </properties>
 

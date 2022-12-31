@@ -3,7 +3,6 @@ package com.github.mengweijin.flowable;
 import com.github.mengweijin.flowable.processor.FlowableBeanDefinitionRegistryPostProcessor;
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,7 +29,7 @@ public class FlowableSecurityAutoConfiguration implements WebMvcConfigurer, Engi
     public void addViewControllers(ViewControllerRegistry registry) {
     }
 
-    @Bean
+    //@Bean
     public FlowableBeanDefinitionRegistryPostProcessor flowableBeanDefinitionRegistryPostProcessor() {
         return new FlowableBeanDefinitionRegistryPostProcessor();
     }
