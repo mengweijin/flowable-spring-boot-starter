@@ -28,11 +28,11 @@
       <artifactId>flowable-spring-boot-starter</artifactId>
       <version>${flowable-spring-boot-starter.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.github.mengweijin</groupId>
-      <artifactId>generator-spring-boot-starter</artifactId>
-      <version>${generator-spring-boot-starter.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.github.mengweijin</groupId>-->
+<!--      <artifactId>generator-spring-boot-starter</artifactId>-->
+<!--      <version>${generator-spring-boot-starter.version}</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
